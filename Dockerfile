@@ -18,4 +18,8 @@ RUN wget https://github.com/Audiveris/audiveris/releases/download/5.10.2/Audiver
     dpkg-divert --local --rename --remove /usr/bin/xdg-desktop-menu && \
     rm Audiveris-5.10.2-ubuntu24.04-x86_64.deb
 
+RUN mkdir -p /root/.config/AudiverisLtd/audiveris/tessdata && \
+    wget https://github.com/tesseract-ocr/tessdata/raw/refs/heads/main/eng.traineddata -O /root/.config/AudiverisLtd/audiveris/tessdata/eng.traineddata && \
+    wget https://github.com/tesseract-ocr/tessdata/raw/refs/heads/main/ita.traineddata -O /root/.config/AudiverisLtd/audiveris/tessdata/ita.traineddata
+
 CMD ["sh", "-c", "/opt/audiveris/bin/Audiveris -batch -export -output /output/ $(ls /input/*.jpg /input/*.png /input/*.pdf)"]
